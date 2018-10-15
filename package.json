@@ -1,0 +1,17 @@
+{
+  "name": "ble-eq3-awsiot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "aws-mqtt-client": "0.0.5",
+    "aws-sdk": "^2.334.0",
+    "bluetooth-hci-socket": "^0.5.1",
+    "eq3ble": "chrisns/node-eq3ble#built"
+  }
+}
