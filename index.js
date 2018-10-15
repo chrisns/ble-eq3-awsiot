@@ -3,7 +3,7 @@ const util = require("util")
 const EQ3BLE = require('eq3ble').default;
 const AWSMqtt = require("aws-mqtt-client").default
 
-const {AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY, AWS_IOT_ENDPOINT_HOST, AWS_REGION, DEBUG} = process.env
+const { AWS_ACCESS_KEY, AWS_SECRET_ACCESS_KEY, AWS_IOT_ENDPOINT_HOST, AWS_REGION, DEBUG } = process.env
 
 const iot = new AWS.Iot({
   accessKeyId: AWS_ACCESS_KEY,
@@ -69,17 +69,17 @@ EQ3BLE.discover(async device => {
   await device.connectAndSetup()
   console.info(`connected ${params.thingName}`)
   await subscribe_to_thing(params.thingName)
-  
+
   things[params.thingName] = device
 
   console.log(await device.getInfo())
   await update_thing(params.thingName, device)
-  setInterval(update_thing, (5*60*1000), params.thingName, device);
+  setInterval(update_thing, (5 * 60 * 1000), params.thingName, device);
 })
 
 const update_thing = async (thingName, device) => iotdata.updateThingShadow({
   thingName: thingName,
-  payload: JSON.stringify({state: { reported: await device.getInfo()}})
+  payload: JSON.stringify({ state: { reported: await device.getInfo() } })
 }).promise()
 
 awsMqttClient.on("message", async (topic, message) => {
@@ -87,7 +87,7 @@ awsMqttClient.on("message", async (topic, message) => {
   const payload = JSON.parse(message.toString()).state
   const device = things[thingName];
   console.log(`received`, payload)
-  if (device.state === 'connected') 
+  if (device.state === 'connected')
     await device.connectAndSetup()
   console.log(`connected to ${thingName}`)
   if (payload.targetTemperature) device.setTemperature(payload.targetTemperature)
@@ -102,5 +102,5 @@ awsMqttClient.on("message", async (topic, message) => {
 
 const timeout = 60
 setTimeout(() => {
-  if(subscriptions.length === 0) throw `no subscriptions made in ${timeout} seconds`
-}, timeout*1000)
+  if (subscriptions.length === 0) throw `no subscriptions made in ${timeout} seconds`
+}, timeout * 1000)
