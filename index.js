@@ -87,7 +87,8 @@ awsMqttClient.on("message", async (topic, message) => {
   const payload = JSON.parse(message.toString()).state
   const device = things[thingName];
   console.log(`received`, payload)
-  await device.connectAndSetup()
+  if (device.state === 'connected') 
+    await device.connectAndSetup()
   console.log(`connected to ${thingName}`)
   if (payload.targetTemperature) device.setTemperature(payload.targetTemperature)
   if (payload.lock !== undefined) device.setLock(payload.lock)
