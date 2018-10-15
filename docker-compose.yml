@@ -17,7 +17,7 @@ services:
         delay: 5s
     image: chrisns/ble-eq3-awsiot:${DRONE_BUILD_NUMBER}
     environment:
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
       - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
       - AWS_IOT_ENDPOINT_HOST=${AWS_IOT_ENDPOINT_HOST}
       - AWS_REGION=${AWS_REGION}
