@@ -11,5 +11,5 @@ RUN apk add --no-cache bluez bluez-deprecated
 COPY --from=builder /app /app
 WORKDIR /app 
 COPY index.js .
-
+USER node
 CMD npm start
